@@ -160,7 +160,13 @@ namespace Telegram.ViewModels
 
         public bool GeneratedContentUnread { get; set; }
 
-        public override bool CanBeAddedToDownloads => CanBeSaved && !Chat.HasProtectedContent && Content is MessageAudio or MessageDocument or MessageVideo;
+        public override bool CanBeAddedToDownloads => Content is MessagePhoto
+            or MessageVideo
+            or MessageVideoNote
+            or MessageAnimation
+            or MessageAudio
+            or MessageVoiceNote
+            or MessageDocument;
 
         public bool IsVisuallyOutgoing => (IsOutgoing && !IsChannelPost) || (IsSaved && ForwardInfo?.Source is { IsOutgoing: true });
 
@@ -666,12 +672,13 @@ namespace Telegram.ViewModels
         {
             get
             {
-                if (ClientService.TryGetChat(ChatId, out var chat))
-                {
-                    return CanBeSaved && !chat.HasProtectedContent && Content is MessageAudio or MessageDocument or MessageVideo;
-                }
-
-                return false;
+                return Content is MessagePhoto
+                    or MessageVideo
+                    or MessageVideoNote
+                    or MessageAnimation
+                    or MessageAudio
+                    or MessageVoiceNote
+                    or MessageDocument;
             }
         }
     }

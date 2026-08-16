@@ -220,7 +220,8 @@ namespace Telegram.ViewModels.Gallery
 
         public override bool CanBeViewed => true;
         public override bool CanBeCopied => CanBeSaved && IsPhoto;
-        public override bool CanBeSaved => !_hasProtectedContent && _message.Content switch
+        public override bool CanBeSaved => true;
+        public override bool CanBeShared => !_hasProtectedContent && _message.Content switch
         {
             MessageAnimation animation => !animation.IsSecret,
             MessagePhoto photo => !photo.IsSecret,
@@ -228,8 +229,6 @@ namespace Telegram.ViewModels.Gallery
             MessageVideoNote videoNote => !videoNote.IsSecret,
             _ => true
         };
-
-        public override bool CanBeShared => CanBeSaved;
 
         public override bool HasProtectedContent => _hasProtectedContent || _message.Content switch
         {
