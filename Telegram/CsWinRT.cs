@@ -5,6 +5,8 @@
 // file LICENSE or copy at https://www.gnu.org/licenses/gpl-3.0.txt)
 //
 
+using System;
+
 // CsWinRT cannot subscribe Windows.UI.Xaml.Media.CompositionTarget from more than one view:
 // every view's handler ends up on the first one's thread. CompositionTargetImpl registers
 // through the ABI instead, and the alias keeps every call site written the way it always was.
